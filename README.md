@@ -8,7 +8,7 @@ The Android application code is currently untested but should compile within Ecl
 
 ## Motor Control
 
-The motor control sketch requires two Cytron 10A Motor Shield boards, stacked together on an Arduino (UNO Rev 3) as well as a 12V power source to allow the motors to reach full speed. The first board should have jumpers on pims D3 and D2 and the second board should have jumpers on pins D5 and D4.
+The motor control sketch requires two Cytron 10A Motor Shield boards (http://www.robotshop.com/ca/en/10a-dc-motor-driver-arduino-shield.html), stacked together on an Arduino (UNO Rev 3) as well as a 12V power source to allow the motors to reach full speed. The first board should have jumpers on pins D3 and D2 and the second board should have jumpers on pins D5 and D4. The motors used are 12V 50:1 170oz-inc Metal Gearmotors (http://www.robotshop.com/ca/en/12v-501-170oz-inc-metal-gearmotor.html).
 Wire one motor opposite the other so that they spin in the same direction when facing opposite directions.
 
 This code allows you to control the two motors through the Ardunio IDE serial monitor with the following values:
@@ -24,7 +24,7 @@ Control of the two drive motors will be adapted to Bluetooth and will eventually
 
 ## Servo Control
 
-The servo control sketch uses two Hitec HS-422 Deluxe servos with a Lynxmotion Pan/Tilt kit. The base servo should be wired to pin D9 and the top servo should be wired to pin D10. The base servo has a full operating range of 0 degrees to 180 degrees while the to servo has an operating range of 0 degrees to 135 degrees to avoid collisions with the tilt bracket.
+The servo control sketch uses two Hitec HS-422 Deluxe servos with a Lynxmotion Pan/Tilt kit (http://www.robotshop.com/ca/en/lynxmotion-pan-and-tilt-kit-aluminium2.html). The base servo should be wired to pin D9 and the top servo should be wired to pin D10. The base servo has a full operating range of 0 degrees to 180 degrees while the to servo has an operating range of 0 degrees to 135 degrees to avoid collisions with the tilt bracket.
 
 This code allows you to control the two servos through the Ardunio IDE serial monitor by entering degree values in the following format:
 
