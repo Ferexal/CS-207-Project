@@ -1,4 +1,4 @@
-
+# Copyright
    
     Copyright (C) 2015  Mitchell Steffensen, Thomas Fahlman, and Kevin Peterson
 
@@ -55,9 +55,7 @@ The first value is the position of the base servo and the second value is the po
 This code is pulled from http://solderer.tv/cxemcar/ and has not yet been tested. It should compile and work on an Android device and will be adapted to our needs later.
 
 
-###Parts
-
-####Already Acquired Parts
+### Parts List
 
 	2 x Arduino UNO Rev 3
 	
@@ -66,22 +64,3 @@ This code is pulled from http://solderer.tv/cxemcar/ and has not yet been tested
 	2 x 12V 50:1 170oz-inc Metal Gearmotor (http://www.robotshop.com/ca/en/12v-501-170oz-inc-metal-gearmotor.html)
 	
 	Lynxmotion Pan/Tilt Kit (includes 2 x Hitec HS-422 Deluxe Servo) (http://www.robotshop.com/ca/en/lynxmotion-pan-and-tilt-kit-aluminium2.html)
-
-
-####Parts to Acquire
-
-	12V Battery
-	
-	Bluetooth Module
-	
-	Wheels
-	
-	Elbow and Claw Servos
-	
-	Base Materials
-	
-	Mounting Hardware
-	
-	Arm and Claw Materials
-
-
