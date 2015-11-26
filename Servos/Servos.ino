@@ -28,7 +28,7 @@ const int BASE_SERVO_PIN = 9;
 const int SHOULDER_SERVO_PIN = 10;
 const int ELBOW_SERVO_PIN = 11;
 const int CLAW_RIGHT_SERVO_PIN = 12;
-const int CLAW_LEFTT_SERVO_PIN = 13;
+const int CLAW_LEFT_SERVO_PIN = 13;
 
 //Servo ranges
 const int BASE_SERVO_MAX = 180;
@@ -74,7 +74,7 @@ void setup()
 	shoulderServo.attach(SHOULDER_SERVO_PIN);
 	elbowServo.attach(ELBOW_SERVO_PIN);
 	clawRightServo.attach(CLAW_RIGHT_SERVO_PIN);
-	clawLeftServo.attach(CLAW_LEFTT_SERVO_PIN);
+	clawLeftServo.attach(CLAW_LEFT_SERVO_PIN);
 	
 	//Move the servos to their default positions
   	baseServo.write(baseServoPos);
