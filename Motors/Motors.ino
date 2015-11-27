@@ -1,4 +1,5 @@
 /*
+<<<<<<< HEAD
 	Arduino UNO Rev 3 Brushed DC Motor Control
 	
 	Requires two Cytron 10A Motor Driver Shields (Rev 2) and a 12V power source.
