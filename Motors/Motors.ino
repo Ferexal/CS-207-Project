@@ -1,12 +1,11 @@
+
 /*
-<<<<<<< HEAD
 	Arduino UNO Rev 3 Brushed DC Motor Control
 	
 	Requires two Cytron 10A Motor Driver Shields (Rev 2) and a 12V power source.
 	
 	The first board should have jumpers on pin D3 and pin D2.
 	The second board should have jumpers on pin D5 and D4.
-
 	Wire one motor opposite the other so that they spin in the same direction when facing opposite directions.
 	
 	Motors are currently controlled via serial as follows (until Bluetooth is implemented):
