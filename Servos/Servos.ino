@@ -37,10 +37,10 @@ const int SHOULDER_SERVO_MAX = 135;
 const int SHOULDER_SERVO_MIN = 0;
 const int ELBOW_SERVO_MAX = 180;
 const int ELBOW_SERVO_MIN = 30;
-const int CLAW_RIGHT_SERVO_MAX = 180;
-const int CLAW_RIGHT_SERVO_MIN = 75;
-const int CLAW_LEFT_SERVO_MAX = 105;
-const int CLAW_LEFT_SERVO_MIN = 0;
+const int CLAW_RIGHT_SERVO_MAX = 125;
+const int CLAW_RIGHT_SERVO_MIN = 0;
+const int CLAW_LEFT_SERVO_MAX = 180;
+const int CLAW_LEFT_SERVO_MIN = 55;
 
 const int SERVO_SPEED = 20; //Servo speed (Delay between each servo movement)
  
@@ -52,16 +52,11 @@ Servo clawRightServo;
 Servo clawLeftServo;
 
 //Current servo positions
-long baseServoPos = 0;
+long baseServoPos = 90;
 long shoulderServoPos = 90;
 long elbowServoPos = 120;
-long clawRightServoPos = 75;
-long clawLeftServoPos = 105;
-
-//Last known servo positons
-long baseServoLastPos = baseServoPos;
-long shoulderServoLastPos = shoulderServoPos;
-long elbowServoLastPos = elbowServoPos;
+long clawRightServoPos = 0;
+long clawLeftServoPos = 180;
 
 int servoByte = 0; //First byte of serial data to check which servo(s) to control
 
@@ -92,15 +87,15 @@ void loop()
 		
 		if(servoByte == 66) //Base
 		{
-			moveServo(baseServo, baseServoPos, baseServoLastPos, BASE_SERVO_MAX, BASE_SERVO_MIN, SERVO_SPEED); 
+			moveServo(baseServo, baseServoPos, BASE_SERVO_MAX, BASE_SERVO_MIN, SERVO_SPEED); 
 		}
 		else if(servoByte == 83) //Shoulder
 		{
-			moveServo(shoulderServo, shoulderServoPos, shoulderServoLastPos, SHOULDER_SERVO_MAX, SHOULDER_SERVO_MIN, SERVO_SPEED);
+			moveServo(shoulderServo, shoulderServoPos, SHOULDER_SERVO_MAX, SHOULDER_SERVO_MIN, SERVO_SPEED);
 		}
 		else if(servoByte == 69) //Elbow
 		{
-			moveServo(elbowServo, elbowServoPos, elbowServoLastPos, ELBOW_SERVO_MAX, ELBOW_SERVO_MIN, SERVO_SPEED);
+			moveServo(elbowServo, elbowServoPos, ELBOW_SERVO_MAX, ELBOW_SERVO_MIN, SERVO_SPEED);
 		}
 		else if(servoByte == 67) //Claw
 		{
@@ -125,9 +120,9 @@ void loop()
 	}
 }
 
-void moveServo(Servo servo, long newPos, long &lastPos, int max, int min, int moveDelay)
+void moveServo(Servo servo, long &lastPos, int max, int min, int moveDelay)
 {
-	newPos = Serial.parseInt(); //Read input for the servo position
+	long newPos = Serial.parseInt(); //Read input for the servo position
 	
 	//The input is out of the possible range for the servo so adjust it accordingly
 	if(newPos < min)

@@ -102,6 +102,7 @@ namespace Controller {
 			this->trackBarBase->Size = System::Drawing::Size(593, 45);
 			this->trackBarBase->TabIndex = 0;
 			this->trackBarBase->TickFrequency = 5;
+			this->trackBarBase->Value = 90;
 			this->trackBarBase->ValueChanged += gcnew System::EventHandler(this, &controllerForm::trackBarBase_ValueChanged);
 			this->trackBarBase->MouseCaptureChanged += gcnew System::EventHandler(this, &controllerForm::trackBarBase_MouseCaptureChanged);
 			// 
@@ -114,6 +115,7 @@ namespace Controller {
 			this->trackBarShoulder->Size = System::Drawing::Size(593, 45);
 			this->trackBarShoulder->TabIndex = 1;
 			this->trackBarShoulder->TickFrequency = 5;
+			this->trackBarShoulder->Value = 90;
 			this->trackBarShoulder->ValueChanged += gcnew System::EventHandler(this, &controllerForm::trackBarShoulder_ValueChanged);
 			this->trackBarShoulder->MouseCaptureChanged += gcnew System::EventHandler(this, &controllerForm::trackBarShoulder_MouseCaptureChanged);
 			// 
@@ -127,7 +129,7 @@ namespace Controller {
 			this->trackBarElbow->Size = System::Drawing::Size(593, 45);
 			this->trackBarElbow->TabIndex = 2;
 			this->trackBarElbow->TickFrequency = 5;
-			this->trackBarElbow->Value = 30;
+			this->trackBarElbow->Value = 120;
 			this->trackBarElbow->ValueChanged += gcnew System::EventHandler(this, &controllerForm::trackBarElbow_ValueChanged);
 			this->trackBarElbow->MouseCaptureChanged += gcnew System::EventHandler(this, &controllerForm::trackBarElbow_MouseCaptureChanged);
 			// 
@@ -135,13 +137,11 @@ namespace Controller {
 			// 
 			this->trackBarClaw->Enabled = false;
 			this->trackBarClaw->Location = System::Drawing::Point(12, 216);
-			this->trackBarClaw->Maximum = 180;
-			this->trackBarClaw->Minimum = 75;
+			this->trackBarClaw->Maximum = 125;
 			this->trackBarClaw->Name = L"trackBarClaw";
 			this->trackBarClaw->Size = System::Drawing::Size(593, 45);
 			this->trackBarClaw->TabIndex = 3;
 			this->trackBarClaw->TickFrequency = 5;
-			this->trackBarClaw->Value = 75;
 			this->trackBarClaw->ValueChanged += gcnew System::EventHandler(this, &controllerForm::trackBarClaw_ValueChanged);
 			this->trackBarClaw->MouseCaptureChanged += gcnew System::EventHandler(this, &controllerForm::trackBarClaw_MouseCaptureChanged);
 			// 
