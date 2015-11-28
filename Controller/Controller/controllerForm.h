@@ -54,6 +54,7 @@ namespace Controller {
 	private: System::Windows::Forms::Label^  labelElbowVal;
 	private: System::Windows::Forms::Label^  labelClawVal;
 	private: System::Windows::Forms::ComboBox^  comboBoxCOMPort;
+	private: System::Windows::Forms::Button^  buttonRefreshCOMPorts;
 
 	private: System::ComponentModel::IContainer^  components;
 	protected:
@@ -87,6 +88,7 @@ namespace Controller {
 			this->labelElbowVal = (gcnew System::Windows::Forms::Label());
 			this->labelClawVal = (gcnew System::Windows::Forms::Label());
 			this->comboBoxCOMPort = (gcnew System::Windows::Forms::ComboBox());
+			this->buttonRefreshCOMPorts = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarBase))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarShoulder))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarElbow))->BeginInit();
@@ -183,9 +185,9 @@ namespace Controller {
 			// 
 			// buttonCOMPort
 			// 
-			this->buttonCOMPort->Location = System::Drawing::Point(142, 273);
+			this->buttonCOMPort->Location = System::Drawing::Point(142, 272);
 			this->buttonCOMPort->Name = L"buttonCOMPort";
-			this->buttonCOMPort->Size = System::Drawing::Size(83, 21);
+			this->buttonCOMPort->Size = System::Drawing::Size(83, 23);
 			this->buttonCOMPort->TabIndex = 8;
 			this->buttonCOMPort->Text = L"Set COM Port";
 			this->buttonCOMPort->UseVisualStyleBackColor = true;
@@ -236,11 +238,22 @@ namespace Controller {
 			this->comboBoxCOMPort->Size = System::Drawing::Size(121, 21);
 			this->comboBoxCOMPort->TabIndex = 14;
 			// 
+			// buttonRefreshCOMPorts
+			// 
+			this->buttonRefreshCOMPorts->Location = System::Drawing::Point(231, 272);
+			this->buttonRefreshCOMPorts->Name = L"buttonRefreshCOMPorts";
+			this->buttonRefreshCOMPorts->Size = System::Drawing::Size(117, 23);
+			this->buttonRefreshCOMPorts->TabIndex = 15;
+			this->buttonRefreshCOMPorts->Text = L"Refresh COM Ports";
+			this->buttonRefreshCOMPorts->UseVisualStyleBackColor = true;
+			this->buttonRefreshCOMPorts->Click += gcnew System::EventHandler(this, &controllerForm::buttonRefreshCOMPorts_Click);
+			// 
 			// controllerForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(651, 306);
+			this->Controls->Add(this->buttonRefreshCOMPorts);
 			this->Controls->Add(this->comboBoxCOMPort);
 			this->Controls->Add(this->labelClawVal);
 			this->Controls->Add(this->labelElbowVal);
@@ -282,41 +295,44 @@ private: System::Void controllerForm_Load(System::Object^  sender, System::Event
 	this->labelElbowVal->Text = String::Concat("", trackBarElbow->Value);
 	this->labelClawVal->Text = String::Concat("", trackBarClaw->Value);
 
-	//Get an array of available serial ports and put it in the combo box
-	this->serialPorts = System::IO::Ports::SerialPort::GetPortNames();
-	this->comboBoxCOMPort->Items->AddRange(serialPorts);
+	loadCOMPorts(); //Load the list of COM ports
 }
 
 //Update each label when its corresponding slider changes
 private: System::Void trackBarBase_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 	this->labelBaseVal->Text = String::Concat("", trackBarBase->Value);
 }
+
 private: System::Void trackBarShoulder_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 	this->labelShoulderVal->Text = String::Concat("", trackBarShoulder->Value);
 }
+
 private: System::Void trackBarElbow_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 	this->labelElbowVal->Text = String::Concat("", trackBarElbow->Value);
 }
+
 private: System::Void trackBarClaw_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 	this->labelClawVal->Text = String::Concat("", trackBarClaw->Value);
 }
 
 //COM port button pressed
 private: System::Void buttonCOMPort_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (comboBoxCOMPort->Text != "") { //The user chose a COM port
+		try {
+			this->serialPortArduino->Close(); //Close any existing connections
+			this->serialPortArduino->PortName = comboBoxCOMPort->Text; //Change the COM port
+			this->serialPortArduino->Open(); //Open a new connection
 
-	if (comboBoxCOMPort->Text != "") //The user chose a COM port
-	{
-		this->serialPortArduino->Close(); //Close any existing connections
-		this->serialPortArduino->PortName = comboBoxCOMPort->Text; //Change the COM port
-		this->serialPortArduino->Open(); //Open a new connection
-
-		//Enable the sliders
-		this->trackBarBase->Enabled = true;
-		this->trackBarShoulder->Enabled = true;
-		this->trackBarElbow->Enabled = true;
-		this->trackBarClaw->Enabled = true;
-
-		//MessageBox::Show("Message", "Title", MessageBoxButtons::OKCancel, MessageBoxIcon::Asterisk);
+			//Enable the sliders
+			this->trackBarBase->Enabled = true;
+			this->trackBarShoulder->Enabled = true;
+			this->trackBarElbow->Enabled = true;
+			this->trackBarClaw->Enabled = true;
+		}
+		catch (...) {
+			this->serialPortArduino->Close(); //Close the connection
+			MessageBox::Show("Unable to connect to the specified COM port.\n\nEnsure the device is connected and not already in use.", "Connection Failed", MessageBoxButtons::OKCancel, MessageBoxIcon::Asterisk); //Connection error message
+		}
 	}
 }
 
@@ -326,17 +342,75 @@ private: System::Void controllerForm_FormClosing(System::Object^  sender, System
 }
 
 //Send the value of the slider to the Arduino when the slider is released
-private: System::Void trackBarBase_MouseCaptureChanged(System::Object^  sender, System::EventArgs^  e) {\
-	this->serialPortArduino->Write(String::Concat("B", trackBarBase->Value));
+private: System::Void trackBarBase_MouseCaptureChanged(System::Object^  sender, System::EventArgs^  e) {
+	try {
+		this->serialPortArduino->Write(String::Concat("B", trackBarBase->Value));
+	}
+	catch (...) {
+		connectionLost();
+	}
 }
+
 private: System::Void trackBarShoulder_MouseCaptureChanged(System::Object^  sender, System::EventArgs^  e) {
-	this->serialPortArduino->Write(String::Concat("S", trackBarShoulder->Value));
+	try {
+		this->serialPortArduino->Write(String::Concat("S", trackBarShoulder->Value));
+	}
+	catch (...) {
+		connectionLost();
+	}
 }
+
 private: System::Void trackBarElbow_MouseCaptureChanged(System::Object^  sender, System::EventArgs^  e) {
-	this->serialPortArduino->Write(String::Concat("E", trackBarElbow->Value));
+	try {
+		this->serialPortArduino->Write(String::Concat("E", trackBarElbow->Value));
+	}
+	catch (...) {
+		connectionLost();
+	}
 }
+
 private: System::Void trackBarClaw_MouseCaptureChanged(System::Object^  sender, System::EventArgs^  e) {
-	this->serialPortArduino->Write(String::Concat("C", trackBarClaw->Value));
+	try {
+		this->serialPortArduino->Write(String::Concat("C", trackBarClaw->Value));
+	}
+	catch (...) {
+		connectionLost();
+	}
+}
+
+//Refresh the list of COM Ports
+private: System::Void buttonRefreshCOMPorts_Click(System::Object^  sender, System::EventArgs^  e) {
+	loadCOMPorts(); //Load the list of COM ports
+}
+
+		 //Load the list of COM ports 
+private: System::Void loadCOMPorts() {
+	try {
+		comboBoxCOMPort->Items->Clear(); //Clear the list of COM Ports
+		this->serialPorts = System::IO::Ports::SerialPort::GetPortNames(); //Get an array of available serial ports and put it in the combo box
+		this->comboBoxCOMPort->Items->AddRange(serialPorts); //Add the list of COM Ports to the combo box
+	}
+	catch (...) {
+		MessageBox::Show("Unable to get COM ports.\n\nPlease try again.", "COM Ports", MessageBoxButtons::OKCancel, MessageBoxIcon::Asterisk); //COM ports error message
+	}
+}
+
+private: System::Void connectionLost() {
+	this->serialPortArduino->Close(); //Close the connection
+
+	//Disable the sliders
+	this->trackBarBase->Enabled = false;
+	this->trackBarShoulder->Enabled = false;
+	this->trackBarElbow->Enabled = false;
+	this->trackBarClaw->Enabled = false;
+
+	//Reset the slider values
+	this->trackBarBase->Value = 90;
+	this->trackBarShoulder->Value = 90;
+	this->trackBarElbow->Value = 120;
+	this->trackBarClaw->Value = 0;
+
+	MessageBox::Show("Lost connection to the specified COM port.\n\nEnsure the device is connected and not already in use.", "Connection Lost", MessageBoxButtons::OKCancel, MessageBoxIcon::Asterisk); //Connection lost error message
 }
 };
 }
