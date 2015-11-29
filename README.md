@@ -75,6 +75,6 @@ To use this you can simply run the executable found in the debug folder or you c
 	
 	3 x Hitec HS-422 Deluxe Servo (http://www.robotshop.com/ca/en/hitec-hs422-servo-motor.html)
 	
-	Lynxmotion Pan/Tilt Kit (http://www.robotshop.com/ca/en/lynxmotion-pan-and-tilt-kit-aluminium2.html)
-	
 	2 x Generic Small Servo
+	
+	Lynxmotion Pan/Tilt Kit (includes 2 x Hitec HS-422 Deluxe Servo) (http://www.robotshop.com/ca/en/lynxmotion-pan-and-tilt-kit-aluminium2.html)
