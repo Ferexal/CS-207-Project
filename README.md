@@ -1,6 +1,6 @@
 # Copyright
    
-    Copyright (C) 2015  Mitchell Steffensen, Thomas Fahlman, and Kevin Peterson
+    Copyright (C) 2015 Mitchell Steffensen, Thomas Fahlman, and Kevin Peterson
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
