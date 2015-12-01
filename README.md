@@ -21,8 +21,6 @@ This goal of this project is to have a control a four-wheeled, driveable robotic
 
 The motor and servo control code can be compiled and uploaded to an Arduino through the standard Arduino IDE (1.6.5).
 
-The Android application code is currently untested but should compile within Eclipse or Android Studio. This code will be used to develop our own Android application for controlling the robot over Bluetooth.
-
 ### Motor Control
 
 The motor control sketch requires two Cytron 10A Motor Shield boards stacked together on an Arduino (UNO Rev 3) as well as a 12V power source connected to each shield. The first board should have jumpers on pins D3 and D2 and the second board should have jumpers on pins D5 and D4. 
