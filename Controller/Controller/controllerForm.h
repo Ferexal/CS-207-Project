@@ -55,6 +55,17 @@ namespace Controller {
 	private: System::Windows::Forms::Label^  labelClawVal;
 	private: System::Windows::Forms::ComboBox^  comboBoxCOMPort;
 	private: System::Windows::Forms::Button^  buttonRefreshCOMPorts;
+	private: System::Windows::Forms::TrackBar^  trackBarY;
+	private: System::Windows::Forms::TrackBar^  trackBarX;
+
+
+	private: System::Windows::Forms::Label^  labelYVal;
+	private: System::Windows::Forms::Label^  labelXVal;
+
+
+	private: System::Windows::Forms::Label^  labelFR;
+	private: System::Windows::Forms::Label^  labelLR;
+	private: System::Windows::Forms::Button^  buttonStop;
 
 	private: System::ComponentModel::IContainer^  components;
 	protected:
@@ -89,10 +100,19 @@ namespace Controller {
 			this->labelClawVal = (gcnew System::Windows::Forms::Label());
 			this->comboBoxCOMPort = (gcnew System::Windows::Forms::ComboBox());
 			this->buttonRefreshCOMPorts = (gcnew System::Windows::Forms::Button());
+			this->trackBarY = (gcnew System::Windows::Forms::TrackBar());
+			this->trackBarX = (gcnew System::Windows::Forms::TrackBar());
+			this->labelYVal = (gcnew System::Windows::Forms::Label());
+			this->labelXVal = (gcnew System::Windows::Forms::Label());
+			this->labelFR = (gcnew System::Windows::Forms::Label());
+			this->labelLR = (gcnew System::Windows::Forms::Label());
+			this->buttonStop = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarBase))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarShoulder))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarElbow))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarClaw))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarY))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarX))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// trackBarBase
@@ -185,9 +205,9 @@ namespace Controller {
 			// 
 			// buttonCOMPort
 			// 
-			this->buttonCOMPort->Location = System::Drawing::Point(142, 272);
+			this->buttonCOMPort->Location = System::Drawing::Point(197, 271);
 			this->buttonCOMPort->Name = L"buttonCOMPort";
-			this->buttonCOMPort->Size = System::Drawing::Size(83, 23);
+			this->buttonCOMPort->Size = System::Drawing::Size(201, 23);
 			this->buttonCOMPort->TabIndex = 8;
 			this->buttonCOMPort->Text = L"Set COM Port";
 			this->buttonCOMPort->UseVisualStyleBackColor = true;
@@ -233,26 +253,105 @@ namespace Controller {
 			// 
 			this->comboBoxCOMPort->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->comboBoxCOMPort->FormattingEnabled = true;
-			this->comboBoxCOMPort->Location = System::Drawing::Point(15, 273);
+			this->comboBoxCOMPort->Location = System::Drawing::Point(13, 272);
 			this->comboBoxCOMPort->Name = L"comboBoxCOMPort";
-			this->comboBoxCOMPort->Size = System::Drawing::Size(121, 21);
+			this->comboBoxCOMPort->Size = System::Drawing::Size(178, 21);
 			this->comboBoxCOMPort->TabIndex = 14;
 			// 
 			// buttonRefreshCOMPorts
 			// 
-			this->buttonRefreshCOMPorts->Location = System::Drawing::Point(231, 272);
+			this->buttonRefreshCOMPorts->Location = System::Drawing::Point(404, 271);
 			this->buttonRefreshCOMPorts->Name = L"buttonRefreshCOMPorts";
-			this->buttonRefreshCOMPorts->Size = System::Drawing::Size(117, 23);
+			this->buttonRefreshCOMPorts->Size = System::Drawing::Size(201, 23);
 			this->buttonRefreshCOMPorts->TabIndex = 15;
 			this->buttonRefreshCOMPorts->Text = L"Refresh COM Ports";
 			this->buttonRefreshCOMPorts->UseVisualStyleBackColor = true;
 			this->buttonRefreshCOMPorts->Click += gcnew System::EventHandler(this, &controllerForm::buttonRefreshCOMPorts_Click);
 			// 
+			// trackBarY
+			// 
+			this->trackBarY->Enabled = false;
+			this->trackBarY->Location = System::Drawing::Point(653, 25);
+			this->trackBarY->Maximum = 254;
+			this->trackBarY->Minimum = -254;
+			this->trackBarY->Name = L"trackBarY";
+			this->trackBarY->Size = System::Drawing::Size(593, 45);
+			this->trackBarY->TabIndex = 16;
+			this->trackBarY->TickFrequency = 5;
+			this->trackBarY->ValueChanged += gcnew System::EventHandler(this, &controllerForm::trackBarY_ValueChanged);
+			this->trackBarY->MouseCaptureChanged += gcnew System::EventHandler(this, &controllerForm::trackBarY_MouseCaptureChanged);
+			// 
+			// trackBarX
+			// 
+			this->trackBarX->Enabled = false;
+			this->trackBarX->Location = System::Drawing::Point(653, 89);
+			this->trackBarX->Maximum = 254;
+			this->trackBarX->Minimum = -254;
+			this->trackBarX->Name = L"trackBarX";
+			this->trackBarX->Size = System::Drawing::Size(593, 45);
+			this->trackBarX->TabIndex = 17;
+			this->trackBarX->TickFrequency = 5;
+			this->trackBarX->ValueChanged += gcnew System::EventHandler(this, &controllerForm::trackBarX_ValueChanged);
+			this->trackBarX->MouseCaptureChanged += gcnew System::EventHandler(this, &controllerForm::trackBarX_MouseCaptureChanged);
+			// 
+			// labelYVal
+			// 
+			this->labelYVal->AutoSize = true;
+			this->labelYVal->Location = System::Drawing::Point(1252, 36);
+			this->labelYVal->Name = L"labelYVal";
+			this->labelYVal->Size = System::Drawing::Size(36, 13);
+			this->labelYVal->TabIndex = 18;
+			this->labelYVal->Text = L"labelY";
+			// 
+			// labelXVal
+			// 
+			this->labelXVal->AutoSize = true;
+			this->labelXVal->Location = System::Drawing::Point(1252, 100);
+			this->labelXVal->Name = L"labelXVal";
+			this->labelXVal->Size = System::Drawing::Size(36, 13);
+			this->labelXVal->TabIndex = 19;
+			this->labelXVal->Text = L"labelX";
+			// 
+			// labelFR
+			// 
+			this->labelFR->AutoSize = true;
+			this->labelFR->Location = System::Drawing::Point(650, 9);
+			this->labelFR->Name = L"labelFR";
+			this->labelFR->Size = System::Drawing::Size(90, 13);
+			this->labelFR->TabIndex = 20;
+			this->labelFR->Text = L"Forward/Reverse";
+			// 
+			// labelLR
+			// 
+			this->labelLR->AutoSize = true;
+			this->labelLR->Location = System::Drawing::Point(650, 73);
+			this->labelLR->Name = L"labelLR";
+			this->labelLR->Size = System::Drawing::Size(55, 13);
+			this->labelLR->TabIndex = 21;
+			this->labelLR->Text = L"Left/Right";
+			// 
+			// buttonStop
+			// 
+			this->buttonStop->Location = System::Drawing::Point(653, 140);
+			this->buttonStop->Name = L"buttonStop";
+			this->buttonStop->Size = System::Drawing::Size(593, 154);
+			this->buttonStop->TabIndex = 22;
+			this->buttonStop->Text = L"Stop";
+			this->buttonStop->UseVisualStyleBackColor = true;
+			this->buttonStop->Click += gcnew System::EventHandler(this, &controllerForm::buttonStop_Click);
+			// 
 			// controllerForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(651, 306);
+			this->ClientSize = System::Drawing::Size(1285, 306);
+			this->Controls->Add(this->buttonStop);
+			this->Controls->Add(this->labelLR);
+			this->Controls->Add(this->labelFR);
+			this->Controls->Add(this->labelXVal);
+			this->Controls->Add(this->labelYVal);
+			this->Controls->Add(this->trackBarX);
+			this->Controls->Add(this->trackBarY);
 			this->Controls->Add(this->buttonRefreshCOMPorts);
 			this->Controls->Add(this->comboBoxCOMPort);
 			this->Controls->Add(this->labelClawVal);
@@ -279,6 +378,8 @@ namespace Controller {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarShoulder))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarElbow))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarClaw))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarY))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarX))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -294,6 +395,8 @@ private: System::Void controllerForm_Load(System::Object^  sender, System::Event
 	this->labelShoulderVal->Text = String::Concat("", trackBarShoulder->Value);
 	this->labelElbowVal->Text = String::Concat("", trackBarElbow->Value);
 	this->labelClawVal->Text = String::Concat("", trackBarClaw->Value);
+	this->labelYVal->Text = String::Concat("", trackBarY->Value);
+	this->labelXVal->Text = String::Concat("", trackBarX->Value);
 
 	loadCOMPorts(); //Load the list of COM ports
 }
@@ -315,6 +418,15 @@ private: System::Void trackBarClaw_ValueChanged(System::Object^  sender, System:
 	this->labelClawVal->Text = String::Concat("", trackBarClaw->Value);
 }
 
+private: System::Void trackBarY_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	this->labelYVal->Text = String::Concat("", trackBarY->Value);
+}
+
+private: System::Void trackBarX_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	this->labelXVal->Text = String::Concat("", trackBarX->Value);
+}
+
+
 //COM port button pressed
 private: System::Void buttonCOMPort_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (comboBoxCOMPort->Text != "") { //The user chose a COM port
@@ -328,6 +440,8 @@ private: System::Void buttonCOMPort_Click(System::Object^  sender, System::Event
 			this->trackBarShoulder->Enabled = true;
 			this->trackBarElbow->Enabled = true;
 			this->trackBarClaw->Enabled = true;
+			this->trackBarY->Enabled = true;
+			this->trackBarX->Enabled = true;
 		}
 		catch (...) {
 			this->serialPortArduino->Close(); //Close the connection
@@ -378,12 +492,30 @@ private: System::Void trackBarClaw_MouseCaptureChanged(System::Object^  sender, 
 	}
 }
 
+private: System::Void trackBarY_MouseCaptureChanged(System::Object^  sender, System::EventArgs^  e) {
+	try {
+		this->serialPortArduino->Write(String::Concat("Y", trackBarY->Value));
+	}
+	catch (...) {
+		connectionLost();
+	}
+}
+
+private: System::Void trackBarX_MouseCaptureChanged(System::Object^  sender, System::EventArgs^  e) {
+	try {
+		this->serialPortArduino->Write(String::Concat("X", trackBarX->Value));
+	}
+	catch (...) {
+		connectionLost();
+	}
+}
+
 //Refresh the list of COM Ports
 private: System::Void buttonRefreshCOMPorts_Click(System::Object^  sender, System::EventArgs^  e) {
 	loadCOMPorts(); //Load the list of COM ports
 }
 
-		 //Load the list of COM ports 
+//Load the list of COM ports 
 private: System::Void loadCOMPorts() {
 	try {
 		comboBoxCOMPort->Items->Clear(); //Clear the list of COM Ports
@@ -403,14 +535,28 @@ private: System::Void connectionLost() {
 	this->trackBarShoulder->Enabled = false;
 	this->trackBarElbow->Enabled = false;
 	this->trackBarClaw->Enabled = false;
+	this->trackBarY->Enabled = false;
+	this->trackBarX->Enabled = false;
 
 	//Reset the slider values
 	this->trackBarBase->Value = 90;
 	this->trackBarShoulder->Value = 90;
 	this->trackBarElbow->Value = 120;
 	this->trackBarClaw->Value = 0;
+	this->trackBarY->Value = 0;
+	this->trackBarX->Value = 0;
 
 	MessageBox::Show("Lost connection to the specified COM port.\n\nEnsure the device is connected and not already in use.", "Connection Lost", MessageBoxButtons::OKCancel, MessageBoxIcon::Asterisk); //Connection lost error message
+}
+
+private: System::Void buttonStop_Click(System::Object^  sender, System::EventArgs^  e) {
+	//Stop the robot
+	this->serialPortArduino->Write("Y0");
+	this->serialPortArduino->Write("X0");
+	this->trackBarY->Value = 0;
+	this->trackBarX->Value = 0;
+	this->labelYVal->Text = String::Concat("", trackBarY->Value);
+	this->labelXVal->Text = String::Concat("", trackBarX->Value);
 }
 };
 }
