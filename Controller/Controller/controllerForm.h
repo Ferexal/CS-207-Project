@@ -159,7 +159,7 @@ namespace Controller {
 			// 
 			this->trackBarClaw->Enabled = false;
 			this->trackBarClaw->Location = System::Drawing::Point(12, 216);
-			this->trackBarClaw->Maximum = 125;
+			this->trackBarClaw->Maximum = 105;
 			this->trackBarClaw->Name = L"trackBarClaw";
 			this->trackBarClaw->Size = System::Drawing::Size(593, 45);
 			this->trackBarClaw->TabIndex = 3;
@@ -332,6 +332,7 @@ namespace Controller {
 			// 
 			// buttonStop
 			// 
+			this->buttonStop->Enabled = false;
 			this->buttonStop->Location = System::Drawing::Point(653, 140);
 			this->buttonStop->Name = L"buttonStop";
 			this->buttonStop->Size = System::Drawing::Size(593, 154);
@@ -435,13 +436,14 @@ private: System::Void buttonCOMPort_Click(System::Object^  sender, System::Event
 			this->serialPortArduino->PortName = comboBoxCOMPort->Text; //Change the COM port
 			this->serialPortArduino->Open(); //Open a new connection
 
-			//Enable the sliders
+			//Enable the sliders and button
 			this->trackBarBase->Enabled = true;
 			this->trackBarShoulder->Enabled = true;
 			this->trackBarElbow->Enabled = true;
 			this->trackBarClaw->Enabled = true;
 			this->trackBarY->Enabled = true;
 			this->trackBarX->Enabled = true;
+			this->buttonStop->Enabled = true;
 		}
 		catch (...) {
 			this->serialPortArduino->Close(); //Close the connection
@@ -530,13 +532,14 @@ private: System::Void loadCOMPorts() {
 private: System::Void connectionLost() {
 	this->serialPortArduino->Close(); //Close the connection
 
-	//Disable the sliders
+	//Disable the sliders and button
 	this->trackBarBase->Enabled = false;
 	this->trackBarShoulder->Enabled = false;
 	this->trackBarElbow->Enabled = false;
 	this->trackBarClaw->Enabled = false;
 	this->trackBarY->Enabled = false;
 	this->trackBarX->Enabled = false;
+	this->buttonStop->Enabled = false;
 
 	//Reset the slider values
 	this->trackBarBase->Value = 90;
